@@ -1,0 +1,61 @@
+#include <cstdlib> 
+#include <ctime>   
+#include <iostream>
+using namespace std;
+
+int main() {
+
+  const int size = 3;
+
+  int mass[size][size];
+
+  srand(time(nullptr));
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size; j++) {
+      mass[i][j] = rand() % 100;
+    }
+  }
+
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size; j++) {
+      cout << mass[i][j] << " ";
+    }
+    cout << endl;
+  }
+
+  int *ptr = &mass[0][0];
+  
+  cout << endl;
+  cout << endl;
+  cout << "Elements of the main diagonal" << endl;
+
+
+    for (int i = 0; i < size; i++) {
+        cout << *(ptr + i * size + i) << " ";
+    }
+  cout << endl;
+  cout << endl;
+  cout << "Elements of the side diagonal" << endl;
+
+    for (int i = 0; i < size; i++) {
+        cout << *(ptr + i * size + (size - 1 - i)) << " ";
+    }
+    cout << endl;
+    cout << endl;
+  int pair = 0;
+  int nopair =0;
+  
+     for (int i = 0; i < size*size; i++) {
+       if(*(ptr+i)%2==0){
+         pair++;
+       }else{
+         nopair++;
+       }
+    }
+  cout << "Paired elements" << endl;
+  cout << pair << endl;
+  cout << "Not paired elements" << endl;
+  cout << nopair << endl;
+
+  return 0;
+}

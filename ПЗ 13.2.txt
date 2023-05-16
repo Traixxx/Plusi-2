@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Fraction {
+public:
+    Fraction(int nomer, int denomer);
+    string toString();
+    double toDouble();
+private:
+    int nomer;
+    int denomer;
+};
+
+Fraction::Fraction(int nomer, int denomer) {
+    this->nomer = nomer;
+    this->denomer = denomer;
+}
+
+string Fraction::toString() {
+    int whole = nomer / denomer;
+    int remainder = abs(nomer) % denomer;
+    string sign = (nomer < 0 || denomer < 0) ? "-" : "";
+    denomer = denomer < 0 ? denomer * -1 : denomer;
+
+    if (whole == 0) {
+        if (remainder == 0) {
+            return "0";
+        }
+        return sign + to_string(abs(nomer)) + "/" + to_string(denomer);
+    }
+    else {
+        if (remainder == 0) {
+            return sign + to_string(whole);
+        }
+        return sign + to_string(whole) + " " + to_string(remainder) + "/" + to_string(denomer);
+    }
+}
+
+double Fraction::toDouble() {
+    return (double)nomer / denomer;
+}
+
+int main(void) {
+    int num, den;
+    std::string input = "";
+    getline(cin, input);
+    size_t pos = input.find('/');
+
+    if (pos != std::string::npos) {
+        num = stoi(input.substr(0, pos));
+        den = stoi(input.substr(pos + 1));
+        Fraction fraction(num, den);
+        cout << fraction.toString() << " is " << fraction.toDouble() << " in decimal" << endl;
+    }
+    else {
+        cout << "Invalid input." << endl;
+    }
+    return 0;
+}
